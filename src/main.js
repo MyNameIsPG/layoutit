@@ -6,9 +6,6 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/reset.styl'
-
-import VueDraggable from 'vue-draggable'
-Vue.use(VueDraggable)
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
