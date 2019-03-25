@@ -4,13 +4,16 @@
       <el-header>Header</el-header>
       <el-container class="el-container-main">
         <aside class="el-aside">
-          <asideForm></asideForm>
+          <asideLeft></asideLeft>
         </aside>
         <el-main class="el-main">
           <div class="el-main-container">
             <router-view></router-view>
           </div>
         </el-main>
+        <aside class="el-aside">
+          <sideRight></sideRight>
+        </aside>
       </el-container>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -18,10 +21,12 @@
 </template>
 
 <script>
-import asideForm from 'src/components/form'
+import asideLeft from 'src/components/sideleft'
+import sideRight from 'src/components/sideRight'
 export default {
   components: {
-    asideForm
+    asideLeft,
+    sideRight
   },
   methods: {
 
@@ -48,7 +53,7 @@ export default {
     display: flex;
   }
   .el-aside {
-    width: 600px;
+    width: 200px;
     border: 1px solid #95B8E7;
     position: relative;
   }
@@ -58,6 +63,7 @@ export default {
     background: #fff;
     box-sizing: border-box;
     border-left: 5px solid #E6EEF8;
+    border-right: 5px solid #E6EEF8;
   }
   .el-main-container {
     width: 100%;
