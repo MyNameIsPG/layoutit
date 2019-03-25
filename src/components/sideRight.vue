@@ -29,12 +29,7 @@ export default {
 
   },
   watch: {
-    editFormList: {
-      handler (ee) {
 
-      },
-      deep: true
-    }
   }
 }
 </script>
