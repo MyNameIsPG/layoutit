@@ -4,15 +4,15 @@
       <el-header>Header</el-header>
       <el-container class="el-container-main">
         <aside class="el-aside">
-          <asideLeft></asideLeft>
+          <asideLeft rel="asideLeft"></asideLeft>
         </aside>
         <el-main class="el-main">
           <div class="el-main-container">
-            <router-view></router-view>
+            <painting rel="painting"></painting>
           </div>
         </el-main>
         <aside class="el-aside">
-          <sideRight></sideRight>
+          <sideRight rel="sideRight"></sideRight>
         </aside>
       </el-container>
       <el-footer>Footer</el-footer>
@@ -23,10 +23,12 @@
 <script>
 import asideLeft from 'src/components/sideleft'
 import sideRight from 'src/components/sideRight'
+import painting from 'src/components/painting'
 export default {
   components: {
     asideLeft,
-    sideRight
+    sideRight,
+    painting
   },
   methods: {
 

@@ -13,7 +13,7 @@ const router = new Router({
       component: homepage,
       children: [
         {path: '/', redirect: 'painting'},
-        {path: '/home/painting', name: '', component: painting}
+        {path: '/painting', name: '', component: painting}
       ]
     }
   ]

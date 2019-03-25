@@ -1,19 +1,17 @@
 <template>
   <div class="dndList">
     <div class="dndList-list">
-      <draggable :list="list2" :options="{ group:{ name: 'article', pull:'clone' }, filter: '.undraggable', sort: false}" @end="end" class="dragArea">
-        <ul v-for="element in list2" :key="element.id"
-             :class="{undraggable : element.flag}"
-             class="list-complete-item">
-          <li>{{element.name}}</li>
+      <draggable v-model="list2" :group="{ name: 'people', pull: 'clone' }" :clone="cloneLib" @end="end" class="dragArea">
+        <ul v-for="item in list2" :key="item.id" class="list-complete-item">
+          <li>{{item.name}}</li>
         </ul>
       </draggable>
     </div>
   </div>
-
 </template>
 <script>
 import draggable from 'vuedraggable'
+import { mapState } from 'vuex'
 export default {
   components: {
     draggable
@@ -22,13 +20,23 @@ export default {
     return {
       disabled: false,
       list2: [
-        {id: 1, name: '输入框', type: 1, model: 'type1'}
+        {id: 1, name: '输入框', type: 1},
+        {id: 2, name: '文本域', type: 2}
       ]
     }
   },
   computed: {
+    ...mapState(['editFormList'])
   },
   methods: {
+    cloneLib (ev) {
+      const id = +new Date()
+      return {
+        id: id,
+        type: ev.type,
+        name: ev.name
+      }
+    },
     end (ev) {
       if (ev.to.className === 'dragArea11') {
         // this.$set(this.list2[ev.oldIndex], 'flag', false)
@@ -37,7 +45,6 @@ export default {
   }
 }
 </script>
-
 <style lang="stylus">
 .list-complete-item {
   cursor: pointer;
