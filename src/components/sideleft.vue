@@ -20,7 +20,8 @@ export default {
     return {
       list2: [
         {id: 1, name: '输入框', type: 1},
-        {id: 2, name: '文本域', type: 2}
+        {id: 2, name: '文本域', type: 2},
+        {id: 3, name: '下拉框', type: 3}
       ]
     }
   },
@@ -30,13 +31,40 @@ export default {
   methods: {
     cloneLib (ev) {
       const id = +new Date()
-      return {
-        id: id,
-        type: ev.type,
-        name: ev.name,
-        show: false,
-        placeholder: '请输入内容',
-        inputModel: ''
+      if (ev == 1 || ev == 2) {
+        return {
+          id: id,
+          type: ev.type,
+          name: ev.name,
+          show: false,
+          placeholder: '请输入内容',
+          inputModel: ''
+        }
+      } else {
+        return {
+          id: id,
+          type: ev.type,
+          name: ev.name,
+          show: false,
+          placeholder: '请输入内容',
+          inputModel: '',
+          options: [{
+            value: '选项1',
+            label: '黄金糕'
+          }, {
+            value: '选项2',
+            label: '双皮奶'
+          }, {
+            value: '选项3',
+            label: '蚵仔煎'
+          }, {
+            value: '选项4',
+            label: '龙须面'
+          }, {
+            value: '选项5',
+            label: '北京烤鸭'
+          }]
+        }
       }
     }
   }

@@ -13,10 +13,12 @@ Vue.config.productionTip = false
 const store = new vuex.Store({
   // 全局状态
   state: {
+    sideRightStatus: true,
     editFormList: {
       name: '',
       placeholder: '',
-      value: ''
+      value: '',
+      options: []
     }
   },
   getters: {

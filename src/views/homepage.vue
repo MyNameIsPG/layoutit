@@ -1,5 +1,5 @@
 <template>
-  <div class="homepage">
+  <div class="homepage" @click="eventTarget($event)">
     <el-container class="el-container">
       <el-header>Header</el-header>
       <el-container class="el-container-main">
@@ -11,9 +11,11 @@
             <painting rel="painting"></painting>
           </div>
         </el-main>
-        <aside class="el-aside">
-          <sideRight rel="sideRight"></sideRight>
-        </aside>
+        <transition name="fade">
+          <aside class="el-aside" v-if="sideRightStatus">
+            <sideRight rel="sideRight"></sideRight>
+          </aside>
+        </transition>
       </el-container>
       <el-footer>Footer</el-footer>
     </el-container>
@@ -21,22 +23,39 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import asideLeft from 'src/components/sideleft'
 import sideRight from 'src/components/sideRight'
 import painting from 'src/components/painting'
 export default {
+  data () {
+    return {
+      show: false
+    }
+  },
   components: {
     asideLeft,
     sideRight,
     painting
   },
+  computed: {
+    ...mapState(['sideRightStatus'])
+  },
   methods: {
+    eventTarget (event) {
 
+    }
   }
 }
 </script>
 
 <style lang="stylus">
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+  }
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
   .homepage, .el-container {
     width: 100%;
     height: 100%;
@@ -55,9 +74,14 @@ export default {
     display: flex;
   }
   .el-aside {
-    width: 200px;
     border: 1px solid #95B8E7;
     position: relative;
+    &:first-child {
+      width 120px;
+    }
+    &:last-child {
+      width: 400px;
+    }
   }
   .el-main {
     padding: 0px;

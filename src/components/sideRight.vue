@@ -12,6 +12,10 @@
       <p>placeholder：</p>
       <el-input v-model="editFormList.placeholder" placeholder="请输入placeholder"></el-input>
     </div>
+    <div class="el-item-content">
+      <p>options：</p>
+      <el-input type="textarea" v-model="editFormList.options"></el-input>
+    </div>
   </div>
 </template>
 <script>
