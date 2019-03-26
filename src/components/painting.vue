@@ -1,18 +1,18 @@
 <template>
   <div class="dndList" style="height: 100%; padding: 30px; box-sizing: border-box;">
     <div class="dndList-list" style="height: 100%;">
-      <draggable v-model="list1" :group="{ name: 'people' }" @start="start22" @end="end22" class="dragArea11" style="height: 100%;">
-        <div v-for="(element,index) in list1" :key="element.id" @click="draggableClick(index)" :class="{'active':formListModel[index].show==true}" class="list-complete-item-clone">
-          <div class="input-box" v-if="element.type==1">
-            <span>{{formListModel[index].name}}</span>
-            <el-input v-model="formListModel[index].inputModel" :placeholder="formListModel[index].placeholder" :disabled="true"></el-input>
+      <el-form ref="form" label-width="80px">
+        <draggable v-model="list1" :group="{ name: 'people' }" @start="start22" @end="end22" class="dragArea11" style="height: 100%;">
+          <div v-for="(element,index) in list1" :key="index" @click="draggableClick(element,index)" :class="{'active':element.show==true}" class="list-complete-item-clone">
+            <el-form-item :label="element.name" v-if="element.type==1">
+              <el-input v-model="element.inputModel" :placeholder="element.placeholder" :disabled="true" :clearable="true"></el-input>
+            </el-form-item>
+            <el-form-item :label="element.name" v-if="element.type==2">
+              <el-input type="textarea" v-model="element.inputModel" :placeholder="element.placeholder" :disabled="true" style="min-height: 80px;"></el-input>
+            </el-form-item>
           </div>
-          <div class="input-box" v-if="element.type==2">
-            <span>{{formListModel[index].name}}</span>
-            <el-input type="textarea" v-model="formListModel[index].inputModel" :placeholder="formListModel[index].placeholder" :disabled="true" style="min-height: 80px;"></el-input>
-          </div>
-        </div>
-      </draggable>
+        </draggable>
+      </el-form>
     </div>
   </div>
 </template>
@@ -26,9 +26,7 @@ export default {
   },
   data () {
     return {
-      disabled: false,
-      list1: [],
-      formListModel: [],
+      list1: [{'id': 1553580799959, 'type': 1, 'name': '1111', 'show': true, 'placeholder': '', 'inputModel': '111'}, {'id': 1553580806441, 'type': 1, 'name': '2222', 'show': false, 'placeholder': '', 'inputModel': '222'}, {'id': 1553580748835, 'type': 1, 'name': '3333', 'show': false, 'placeholder': '', 'inputModel': '333'}, {'id': 1553580756626, 'type': 2, 'name': '4444', 'show': false, 'placeholder': '', 'inputModel': '444'}],
       clickActive: null
     }
   },
@@ -36,15 +34,15 @@ export default {
     ...mapState(['editFormList'])
   },
   methods: {
-    draggableClick (index) {
-      for (let i = 0; i < this.formListModel.length; i++) {
-        this.formListModel[i].show = false
+    draggableClick (element, index) {
+      for (let i = 0; i < this.list1.length; i++) {
+        this.list1[i].show = false
       }
       this.clickActive = index
-      this.formListModel[index].show = !this.formListModel[index].show
-      this.$store.state.editFormList.value = this.formListModel[index].inputModel
-      this.$store.state.editFormList.name = this.formListModel[index].name
-      this.$store.state.editFormList.placeholder = this.formListModel[index].placeholder
+      this.list1[index].show = !element.show
+      this.$store.state.editFormList.value = element.inputModel
+      this.$store.state.editFormList.name = element.name
+      this.$store.state.editFormList.placeholder = element.placeholder
     },
     start22 (event) {
     },
@@ -52,15 +50,11 @@ export default {
     }
   },
   watch: {
-    list1 (item) {
-      let index = item.length - 1
-      this.formListModel.push({ inputModel: '', name: item[index].name, placeholder: '请输入内容', show: false })
-    },
     editFormList: {
       handler (item) {
-        this.formListModel[this.clickActive].inputModel = item.value
-        this.formListModel[this.clickActive].name = item.name
-        this.formListModel[this.clickActive].placeholder = item.placeholder
+        this.list1[this.clickActive].inputModel = item.value
+        this.list1[this.clickActive].name = item.name
+        this.list1[this.clickActive].placeholder = item.placeholder
       },
       deep: true
     }
@@ -72,19 +66,8 @@ export default {
   textarea {
     min-height 90px !important
   }
-  .input-box {
-    display flex;
-    span {
-      width 120px;
-      font-size: 14px;
-      color: #8492a6;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    input {
-      flex: 1;
-    }
+  .el-form-item {
+    margin-bottom 0px;
   }
   .list-complete-item-clone {
     padding: 10px;

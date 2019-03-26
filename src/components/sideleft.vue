@@ -1,7 +1,7 @@
 <template>
   <div class="dndList">
     <div class="dndList-list">
-      <draggable v-model="list2" :group="{ name: 'people', pull: 'clone' }" :clone="cloneLib" @end="end" class="dragArea">
+      <draggable v-model="list2" :group="{ name: 'people', pull: 'clone' }" :clone="cloneLib" class="dragArea">
         <ul v-for="item in list2" :key="item.id" class="list-complete-item">
           <li>{{item.name}}</li>
         </ul>
@@ -18,7 +18,6 @@ export default {
   },
   data () {
     return {
-      disabled: false,
       list2: [
         {id: 1, name: '输入框', type: 1},
         {id: 2, name: '文本域', type: 2}
@@ -34,12 +33,10 @@ export default {
       return {
         id: id,
         type: ev.type,
-        name: ev.name
-      }
-    },
-    end (ev) {
-      if (ev.to.className === 'dragArea11') {
-        // this.$set(this.list2[ev.oldIndex], 'flag', false)
+        name: ev.name,
+        show: false,
+        placeholder: '请输入内容',
+        inputModel: ''
       }
     }
   }
@@ -49,14 +46,18 @@ export default {
 .list-complete-item {
   cursor: pointer;
   position: relative;
-  font-size: 14px;
+  padding: 0px 4px;
   transition: all 1s;
   li {
     padding: 6px 10px;
-    border-bottom 1px solid #ccc;
+    border: 1px solid #dcdfe6;
+    color: #606266;
+    font-size: 14px;
+    border-radius: 4px;
+    margin-top: 5px;
   }
   li:hover {
-    background #ccc
+    border: 1px dashed #f00;
   }
 }
 </style>
